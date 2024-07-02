@@ -3,7 +3,7 @@ mkdir /usr/local/cpanel/base/frontend/jupiter/redis_manager
 cd /usr/local/cpanel/base/frontend/jupiter/redis_manager
 
 echo "Downloading Redis cPanel Plugin..."
-wget -q https://github.com/atikrahman/redis-cpanel-plugin/archive/main.zip -O Redis_Plugin_Package.zip
+wget -q https://github.com/atikrahmanbd/redis-cpanel-plugin/archive/main.zip -O Redis_Plugin_Package.zip
 
 # Extract Archive ZIP
 echo "Extracting Plugin..."
