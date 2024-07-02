@@ -23,7 +23,7 @@ git clone https://github.com/atikrahmanbd/redis-cpanel-plugin.git
 
 ```
 cd ./redis-cpanel-plugin
-chmod +x install.sh
+chmod +x ./plugin/install.sh
 ./plugin/install.sh
 ```
 
