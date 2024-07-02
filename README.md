@@ -16,7 +16,7 @@ To install the plugin, please do the following:
 2. Clone the repo:
 
 ```
-git clone https://github.com/atikrahman/redis-cpanel-plugin.git
+git clone https://github.com/atikrahmanbd/redis-cpanel-plugin.git
 ```
 
 3. As root, do the following:
@@ -24,7 +24,7 @@ git clone https://github.com/atikrahman/redis-cpanel-plugin.git
 ```
 cd ./redis-cpanel-plugin
 chmod +x install.sh
-./install.sh
+./plugin/install.sh
 ```
 
 # Contributing
