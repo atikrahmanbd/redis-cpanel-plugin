@@ -1,0 +1,12 @@
+[
+  {
+    "id": "redis_manager_by_atik",
+    "group_id": "software",
+    "icon": "redis_icon.svg",
+    "order": "1",
+    "featuremanager": true,
+    "type": "link",
+    "uri": "redis/index.live.php",
+    "name": "Redis"
+  }
+]
