@@ -38,19 +38,17 @@ require_once("/usr/local/cpanel/php/cpanel.php");
 //Create new cpanel object to integrate.
 $cpanel = new cPanel();
 
-$stylesheetsAndMetaTags = '
-    <link rel="stylesheet" href="style.css" charset="utf-8"/>
-';
+$stylesheetsAndMetaTags = '<link rel="stylesheet" href="style.css" charset="utf-8"/>';
 
-$cpanelHeader = str_replace('</head>', $stylesheetsAndMetaTags . '</head>', $cpanel->header("HostingSewa Redis"));
+$cpanelHeader = str_replace('</head>', $stylesheetsAndMetaTags . '</head>', $cpanel->header("<h1>Redis Manager By Atik</h1>"));
 echo $cpanelHeader;
 
 ?>
 
 
-<h1>Redis Manager By Atik</h1>
+
 <p>Current Status: <?= $status_info['status'] ?></p>
-<?php if ($status_info['status'] == 'Running') : ?>
+<?php if ($status_info['status']) : ?>
     <p>IP: <?= $status_info['ip'] ?></p>
     <p>User: <?= $status_info['user'] ?></p>
     <p>Port: <?= $status_info['port'] ?></p>
@@ -60,11 +58,11 @@ echo $cpanelHeader;
 <?php endif; ?>
 <form method="get">
     <input type="hidden" name="action" value="<?= $status_info['status'] == 'Running' ? 'stop' : 'start' ?>">
-    <button type="submit"><?= $status_info['status'] == 'Running' ? 'Stop Redis' : 'Start Redis' ?></button>
+    <button class="btn btn-danger" type="submit"><?= $status_info['status'] == 'Running' ? 'Stop Redis' : 'Start Redis' ?></button>
 </form>
 
 
-// New Design
+<!-- New Design -->
 <div id="content" class="cp-layout-main-content  cp-layout-main-content--with-main-menu   cp-layout-main-content--with-header ">
     <div class="container-lg">
 
@@ -89,8 +87,16 @@ echo $cpanelHeader;
 
             <div class="panel panel-default">
                 <div class="panel-body">
-                    Current SCnfiguration: <br>
-                    <hr>Current Status: <font color="green">Running</font> <br>IP: 127.0.0.1<br>Port: 55243<br>Password: tpaqVymYNqNykAcBjZF<br>Maximum Memory: 128mb<br>Maximum Databases 16<br>
+                    Current Configuration: <br>
+                    <?php if ($status_info['status'] == 'Running') : ?>
+                        <p>Current Status: <font color="green"><?= $status_info['status'] ?></font><br>
+                        <p>IP: <?= $status_info['ip'] ?></p><br>
+                        <p>User: <?= $status_info['user'] ?></p><br>
+                        <p>Port: <?= $status_info['port'] ?></p><br>
+                        <p>Password: <?= $status_info['password'] ?></p><br>
+                        <p>Maximum Memory: <?= $status_info['max_memory'] ?></p><br>
+                        <p>Maximum Databases: <?= $status_info['max_databases'] ?></p><br>
+                    <?php endif; ?>
                     <hr>
                     <form method="post">
                         <input type="hidden" id="status" name="status" value="Stop">
