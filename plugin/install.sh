@@ -23,9 +23,11 @@ sudo chmod +x /usr/local/bin/manage_redis.sh
 
 #Cleanup By Removing Packages
 echo "Cleaning Up..."
-rm -f Redis_Plugin_Package.zip
+rm -vf Redis_Plugin_Package.zip
+rm -rvf redis-cpanel-plugin-main
+cd -
 cd ../
-rm -rf redis-cpanel-plugin-main
+rm -rvf redis-cpanel-plugin
 
 # Fix Permissions
 echo "Finalizing Permissions..."
