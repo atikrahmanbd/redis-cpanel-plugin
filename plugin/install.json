@@ -6,7 +6,7 @@
     "order": "1",
     "featuremanager": true,
     "type": "link",
-    "uri": "redis_manager/index.live.php",
+    "uri": "redis_plugin/index.live.php",
     "name": "Redis"
   }
 ]
