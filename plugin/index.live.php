@@ -84,33 +84,35 @@ echo $cpanelHeader;
 
     <div class="panel panel-default">
         <div class="panel-body">
-            <img src="/redis_icon.png" alt="Redis" /> Configuration:
-            <hr>
-            <?php if ($status_info['status'] == 'Running') : ?>
-                <p>Status: <font color="<?= $status_info['status'] == 'Running' ? 'green' : 'red' ?>"><?= $status_info['status'] ?></font>
-                <p>IP: <?= $status_info['ip'] ?></p>
-                <p>User: <?= $status_info['user'] ?></p>
-                <p>Port: <?= $status_info['port'] ?></p>
-                <p>Password: <?= $status_info['password'] ?></p>
-                <p>Maximum Memory: <?= $status_info['max_memory'] ?></p>
-                <p>Maximum Databases: <?= $status_info['max_databases'] ?></p>
-            <?php endif; ?>
-            <hr>
-            <form method="get">
-                <input type="hidden" name="action" value="<?= $status_info['status'] == 'Running' ? 'stop' : 'start' ?>">
-                <button class="btn <?= $status_info['status'] == 'Running' ? 'btn-danger' : 'btn-success' ?>" type="submit"><?= $status_info['status'] == 'Running' ? 'Stop Redis' : 'Start Redis' ?></button>
-            </form>
+            <div class="inline-block">
+                <img src="./redis_icon.webp" alt="Redis" width="50" />
+                <h4>Configuration:</h4 </div>
+                <hr>
+                <?php if ($status_info['status'] == 'Running') : ?>
+                    <p>Status: <font color="<?= $status_info['status'] == 'Running' ? 'green' : 'red' ?>"><?= $status_info['status'] ?></font>
+                    <p>IP: <?= $status_info['ip'] ?></p>
+                    <p>User: <?= $status_info['user'] ?></p>
+                    <p>Port: <?= $status_info['port'] ?></p>
+                    <p>Password: <?= $status_info['password'] ?></p>
+                    <p>Maximum Memory: <?= $status_info['max_memory'] ?></p>
+                    <p>Maximum Databases: <?= $status_info['max_databases'] ?></p>
+                <?php endif; ?>
+                <hr>
+                <form method="get">
+                    <input type="hidden" name="action" value="<?= $status_info['status'] == 'Running' ? 'stop' : 'start' ?>">
+                    <button class="btn <?= $status_info['status'] == 'Running' ? 'btn-danger' : 'btn-success' ?>" type="submit"><?= $status_info['status'] == 'Running' ? 'Stop Redis' : 'Start Redis' ?></button>
+                </form>
 
+            </div>
         </div>
-    </div>
 
 
-</div><!-- end body-content -->
-<!-- PAGE TEMPLATE'S CONTENT END -->
+    </div><!-- end body-content -->
+    <!-- PAGE TEMPLATE'S CONTENT END -->
 
 
-<?php
-print $cpanel->footer();
+    <?php
+    print $cpanel->footer();
 
-$cpanel->end();
-?>
+    $cpanel->end();
+    ?>
