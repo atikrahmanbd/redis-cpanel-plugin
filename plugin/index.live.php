@@ -2,7 +2,6 @@
 $action = $_GET['action'] ?? 'status';
 $username = $_ENV['REMOTE_USER'];
 
-
 function manageRedis($action, $username)
 {
     $output = shell_exec("/usr/local/bin/manage_redis.sh $action $username 2>&1");
@@ -31,15 +30,13 @@ if ($action == 'start' || $action == 'stop') {
     header("Location: index.live.php");
     exit;
 }
-?>
 
-<?php
 require_once("/usr/local/cpanel/php/cpanel.php");
 
 //Create new cpanel object to integrate.
 $cpanel = new cPanel();
 
-$stylesheetsAndMetaTags = '<link rel="stylesheet" href="style.css" charset="utf-8"/>';
+$stylesheetsAndMetaTags = '<link rel="stylesheet" href="redis_styles.css" charset="utf-8"/>';
 
 $cpanelHeader = str_replace('</head>', $stylesheetsAndMetaTags . '</head>', $cpanel->header("Redis Manager"));
 echo $cpanelHeader;
@@ -51,15 +48,6 @@ echo $cpanelHeader;
     </div>
 </h1>
 <hr>
-
-
-
-
-<!-- New Design -->
-
-<!-- Banner Section - now controlled via a plugin -->
-<!-- banner -->
-<!-- banner -->
 
 <pre>
     <?php
@@ -74,7 +62,6 @@ echo $cpanelHeader;
 </pre>
 
 <div class="body-content">
-
     <hr>
     <p><strong><a href="https://redis.io/">Redis</a></strong> is an open source (BSD licensed), in-memory data structure store, used as a database,
         cache and message broker. It supports data structures such as strings, hashes, lists, sets, sorted sets with range queries, bitmaps, hyperloglogs
@@ -86,33 +73,29 @@ echo $cpanelHeader;
         <div class="panel-body">
             <div class="inline-block">
                 <img src="./redis_icon.webp" alt="Redis" width="50" />
-                <h4>Configuration:</h4 </div>
-                <hr>
-                <?php if ($status_info['status'] == 'Running') : ?>
-                    <p>Status: <font color="<?= $status_info['status'] == 'Running' ? 'green' : 'red' ?>"><?= $status_info['status'] ?></font>
-                    <p>IP: <?= $status_info['ip'] ?></p>
-                    <p>User: <?= $status_info['user'] ?></p>
-                    <p>Port: <?= $status_info['port'] ?></p>
-                    <p>Password: <?= $status_info['password'] ?></p>
-                    <p>Maximum Memory: <?= $status_info['max_memory'] ?></p>
-                    <p>Maximum Databases: <?= $status_info['max_databases'] ?></p>
-                <?php endif; ?>
-                <hr>
-                <form method="get">
-                    <input type="hidden" name="action" value="<?= $status_info['status'] == 'Running' ? 'stop' : 'start' ?>">
-                    <button class="btn <?= $status_info['status'] == 'Running' ? 'btn-danger' : 'btn-success' ?>" type="submit"><?= $status_info['status'] == 'Running' ? 'Stop Redis' : 'Start Redis' ?></button>
-                </form>
-
+                <h4>Configuration:</h4>
             </div>
+            <hr>
+            <?php if ($status_info['status'] == 'Running') : ?>
+                <p>Status: <font color="<?= $status_info['status'] == 'Running' ? 'green' : 'red' ?>"><?= $status_info['status'] ?></font>
+                </p>
+                <p>IP: <?= $status_info['ip'] ?></p>
+                <p>User: <?= $status_info['user'] ?></p>
+                <p>Port: <?= $status_info['port'] ?></p>
+                <p>Password: <?= $status_info['password'] ?></p>
+                <p>Maximum Memory: <?= $status_info['max_memory'] ?></p>
+                <p>Maximum Databases: <?= $status_info['max_databases'] ?></p>
+            <?php endif; ?>
+            <hr>
+            <form method="get">
+                <input type="hidden" name="action" value="<?= $status_info['status'] == 'Running' ? 'stop' : 'start' ?>">
+                <button class="btn <?= $status_info['status'] == 'Running' ? 'btn-danger' : 'btn-success' ?>" type="submit"><?= $status_info['status'] == 'Running' ? 'Stop Redis' : 'Start Redis' ?></button>
+            </form>
         </div>
+    </div>
+</div>
 
-
-    </div><!-- end body-content -->
-    <!-- PAGE TEMPLATE'S CONTENT END -->
-
-
-    <?php
-    print $cpanel->footer();
-
-    $cpanel->end();
-    ?>
+<?php
+print $cpanel->footer();
+$cpanel->end();
+?>
