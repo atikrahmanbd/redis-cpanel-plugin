@@ -4,11 +4,19 @@ ACTION=$1
 USERNAME=$2
 CONFIG_FILE="/etc/redis/$USERNAME.conf"
 PASSWORD_FILE="/etc/redis/$USERNAME.pass"
-LOG_FILE="/var/log/redis_manager.log"
+LOG_DIR="/var/log/redis"
+LOG_FILE="$LOG_DIR/$USERNAME.log"
 SYSTEMD_SERVICE_DIR="/etc/systemd/system"
-REDIS_CLI="/usr/bin/redis-cli"  # Update this path based on your redis-cli location [Using Command: "which redis-cli"]
+REDIS_CLI=$(which redis-cli)  # Update this path based on your redis-cli location
 
-# Logging Function
+# Ensure log directory exists and set permissions
+mkdir -p $LOG_DIR
+touch $LOG_FILE  # Create an empty log file if it doesn't exist
+chown $USERNAME:$USERNAME $LOG_DIR $LOG_FILE
+chmod 755 $LOG_DIR
+chmod 644 $LOG_FILE
+
+# Logging function
 log() {
     echo "$(date '+%Y-%m-%d %H:%M:%S') - $1" >> $LOG_FILE
 }
@@ -31,8 +39,8 @@ Wants=network-online.target
 ExecStart=/usr/bin/redis-server $config_file --daemonize yes --supervised systemd
 ExecStop=/usr/libexec/redis-shutdown
 Type=notify
-User=redis
-Group=redis
+User=$username
+Group=$username
 RuntimeDirectory=redis
 RuntimeDirectoryMode=0755
 
@@ -85,13 +93,12 @@ case $ACTION in
             echo "maxmemory 256mb" >> $CONFIG_FILE
             echo "databases 16" >> $CONFIG_FILE
             mkdir -p /var/lib/redis/$USERNAME
-            mkdir -p /var/log/redis/$USERNAME
-            chown -R redis:redis /var/lib/redis/$USERNAME
-            chown -R redis:redis /var/log/redis/$USERNAME
+            mkdir -p $LOG_DIR  # Ensure log directory is created
+            chown -R $USERNAME:$USERNAME /var/lib/redis/$USERNAME
+            chown -R $USERNAME:$USERNAME $LOG_DIR
             chmod 755 /var/lib/redis/$USERNAME
-            chown redis:redis /var/log/redis/$USERNAME.log
-            chmod 644 /var/log/redis/$USERNAME.log
-            chown redis:redis $CONFIG_FILE $PASSWORD_FILE
+            chmod 755 $LOG_DIR
+            chown $USERNAME:$USERNAME $CONFIG_FILE $PASSWORD_FILE
             chmod 644 $CONFIG_FILE $PASSWORD_FILE
         else
             PASSWORD=$(cat $PASSWORD_FILE)
@@ -114,7 +121,7 @@ case $ACTION in
         log "Stopping Redis For $USERNAME"
         sudo systemctl stop redis-$USERNAME
         if [ $? -eq 0 ]; then
-            echo "Redis stopped for $USERNAME"
+            echo "Redis Stopped for $USERNAME"
             log "Redis Stopped Successfully For $USERNAME"
             systemctl disable redis-$USERNAME
             rm -f $SYSTEMD_SERVICE_DIR/redis-$USERNAME.service

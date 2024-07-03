@@ -33,23 +33,6 @@ if ($action == 'start' || $action == 'stop') {
 }
 ?>
 
-<p>Current Status: <?= $status_info['status'] ?></p>
-<?php if ($status_info['status'] == 'Running') : ?>
-    <p>IP: <?= $status_info['ip'] ?></p>
-    <p>User: <?= $status_info['user'] ?></p>
-    <p>Port: <?= $status_info['port'] ?></p>
-    <p>Password: <?= $status_info['password'] ?></p>
-    <p>Maximum Memory: <?= $status_info['max_memory'] ?></p>
-    <p>Maximum Databases: <?= $status_info['max_databases'] ?></p>
-<?php endif; ?>
-<br>
-<form method="get">
-    <input type="hidden" name="action" value="<?= $status_info['status'] == 'Running' ? 'stop' : 'start' ?>">
-    <button class="btn btn-danger" type="submit"><?= $status_info['status'] == 'Running' ? 'Stop Redis' : 'Start Redis' ?></button>
-</form>
-
-<br><br>
-
 <?php
 require_once("/usr/local/cpanel/php/cpanel.php");
 
@@ -101,9 +84,9 @@ echo $cpanelHeader;
 
     <div class="panel panel-default">
         <div class="panel-body">
-            Current Configuration:
+            <img src="/redis_icon.png" alt="Redis" /> Configuration:
             <hr>
-            <?php if ($status_info['status']) : ?>
+            <?php if ($status_info['status'] == 'Running') : ?>
                 <p>Status: <font color="<?= $status_info['status'] == 'Running' ? 'green' : 'red' ?>"><?= $status_info['status'] ?></font>
                 <p>IP: <?= $status_info['ip'] ?></p>
                 <p>User: <?= $status_info['user'] ?></p>
