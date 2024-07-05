@@ -51,11 +51,26 @@ class RedisManager
 
     private function findAvailablePort()
     {
-        while (true) {
-            $port = rand(55000, 60000);
-            if (!shell_exec("lsof -i:$port")) {
-                return $port;
-            }
+        $sock = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
+        if ($sock === false) {
+            throw new Exception('Unable to create socket: ' . socket_strerror(socket_last_error()));
+        }
+
+        if (!socket_bind($sock, '127.0.0.1', 0)) {
+            throw new Exception('Unable to bind socket: ' . socket_strerror(socket_last_error($sock)));
+        }
+
+        if (!socket_listen($sock, 1)) {
+            throw new Exception('Unable to listen on socket: ' . socket_strerror(socket_last_error($sock)));
+        }
+
+        socket_getsockname($sock, $addr, $port);
+        socket_close($sock);
+
+        if ($port) {
+            return $port;
+        } else {
+            throw new Exception('Unable to find an available port');
         }
     }
 
