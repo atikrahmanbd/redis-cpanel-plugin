@@ -11,11 +11,12 @@ unzip Redis_Plugin_Package.zip
 
 # Moving To Plugin Residence
 mv redis-cpanel-plugin-main/plugin/* ./
-mv redis-cpanel-plugin-main/redis-template.conf /etc/redis/redis-template.conf
-mv redis-cpanel-plugin-main/manage_redis.sh /usr/local/bin/manage_redis.sh
+
+## No Longer Needed - Code Replaced By RedisManager.php Class
+# mv redis-cpanel-plugin-main/manage_redis.sh /usr/local/bin/manage_redis.sh
 
 # Make The Script Executable
-sudo chmod +x /usr/local/bin/manage_redis.sh
+# sudo chmod +x /usr/local/bin/manage_redis.sh
 
 # Register Plugin with cPanel
 /usr/local/cpanel/scripts/install_plugin /usr/local/cpanel/base/frontend/jupiter/redis_plugin --theme jupiter

@@ -8,14 +8,19 @@ body {
   align-items: center;
 }
 
-.inline-block {
+.header-section {
   display: flex;
   align-items: center;
   gap: 10px;
+  border-bottom: 1px solid #dc3545;
 }
 
-.inline-block img {
+.header-section img {
   border-radius: 5px;
+}
+
+.status-section {
+  margin-top: 15px;
 }
 
 .panel {
@@ -45,4 +50,33 @@ body {
 .btn-danger {
   background-color: #dc3545;
   color: #fff;
+}
+
+hr {
+  border: 0;
+  height: 1px;
+  background: #ddd;
+  margin: 15px 0;
+}
+
+.form-inline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.developed-by {
+  margin-right: 20px;
+  /* Adjust as necessary */
+  font-size: 14px;
+}
+
+.developed-by a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.developed-by a:hover {
+  text-decoration: underline;
 }
