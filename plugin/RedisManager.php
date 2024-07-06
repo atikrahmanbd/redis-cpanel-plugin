@@ -1,5 +1,16 @@
 <?php
 
+/**
+ * Class RedisManager
+ *
+ * @category    	Plugin (cPanel)
+ * @author          Atik Rahman <ar[at]atikrahman.com>
+ * @version			v1.0
+ * @link 			https://github.com/atikrahmanbd/redis-cpanel-plugin
+ * @link			https://atikrahman.com
+ * @license			http://www.apache.org/licenses/LICENSE-2.0
+ */
+
 class RedisManager
 {
     private $cpanel;
