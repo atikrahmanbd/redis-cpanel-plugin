@@ -18,7 +18,7 @@ class RedisManager
     private $configFile;
     private $logDir;
     private $logFile;
-    private $redisCli;
+    private $redisServer;
     private $userRedisDir;
     private $pidFile;
     public $homeDir;
@@ -38,7 +38,7 @@ class RedisManager
         $this->logFile = "{$this->logDir}/{$this->username}.log";
         $this->userRedisDir = "{$this->homeDir}/.cpanel/plugin/redis/data";
         $this->pidFile = "{$this->configDir}/redis.pid";
-        $this->redisCli = trim(shell_exec("which redis-cli"));
+        $this->redisServer = trim(shell_exec("which redis-server"));
     }
 
     private function getAllUserData($cpanel)
@@ -182,7 +182,7 @@ class RedisManager
 
     private function cronBin()
     {
-        return "/usr/bin/flock -n {$this->configDir}/redis.lock" . " " . $this->redisCli;
+        return "/usr/bin/flock -n {$this->configDir}/redis.lock" . " " . $this->redisServer;
     }
 
     private function addCronJob()
