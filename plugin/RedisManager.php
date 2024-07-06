@@ -180,17 +180,47 @@ class RedisManager
         }
     }
 
+    private function cronBin()
+    {
+        return "/usr/bin/flock -n {$this->configDir}/redis.lock" . " " . $this->redisCli;
+    }
+
     private function addCronJob()
     {
-        $cronJob = "* * * * * /usr/bin/flock -n {$this->configDir}/redis.lock redis-server {$this->configFile} --daemonize yes >> /dev/null 2>&1";
-        shell_exec("(crontab -l; echo \"$cronJob\") | crontab -");
+        $cronJobCommand = $this->cronBin() . " {$this->configFile} --daemonize yes >> /dev/null 2>&1";
+        $this->cpanel->api2(
+            'Cron',
+            'add_line',
+            array(
+                'command'       => $cronJobCommand,
+                'day'           => '*',
+                'hour'          => '*',
+                'minute'        => '*',
+                'month'         => '*',
+                'weekday'       => '*',
+            )
+        );
         $this->log("ADDED CRON JOB FOR REDIS");
     }
 
     private function removeCronJob()
     {
-        $cronJob = "* * * * * /usr/bin/flock -n {$this->configDir}/redis.lock redis-server {$this->configFile} --daemonize yes >> /dev/null 2>&1";
-        shell_exec("crontab -l | grep -v '$cronJob' | crontab -");
+        $cronList = $this->cpanel->api2(
+            'Cron',
+            'fetchcron'
+        );
+
+        foreach ($cronList['cpanelresult']['data'] as $cronLine) {
+            if (isset($cronLine['command']) && preg_match('/flock.*redis.*/', $cronLine['command'])) {
+                $this->cpanel->api2(
+                    'Cron',
+                    'remove_line',
+                    array(
+                        'commandnumber' => $cronLine['commandnumber'],
+                    )
+                );
+            }
+        }
         $this->log("REMOVED CRON JOB FOR REDIS");
     }
 }

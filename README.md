@@ -38,6 +38,17 @@ chmod +x ./plugin/install.sh
 ./plugin/install.sh
 ```
 
+# For CloudLinux - CageFS Enabled
+
+**_If you use CloudLinux's CageFS on the server, make sure that you have added the Redis package to CageFS skeleton:_**
+
+```
+cagefsctl --addrpm redis
+cagefsctl --force-update
+```
+
+For the cron job to run and start Redis Server automatically after a system reboot, the above specified is required.
+
 # Usage
 
 Once installed, cPanel user can manage their Redis instance through the cPanel interface.
