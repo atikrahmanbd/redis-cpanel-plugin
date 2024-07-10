@@ -123,7 +123,7 @@ class RedisManager
     public function startRedis()
     {
         $this->createRedisConfig();
-        $output = shell_exec("redis-server {$this->configFile} --daemonize yes 2>&1");
+        $output = shell_exec("/bin/redis-server {$this->configFile} --daemonize yes 2>&1");
         $this->log("REDIS START COMMAND OUTPUT: $output");
 
         // Wait for the PID file to be created
