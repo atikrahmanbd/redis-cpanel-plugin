@@ -19,7 +19,7 @@ A cPanel Plugin that empowers individual cPanel users to control their own Redis
 - cPanel 120.0.11 on AlmaLinux 9
 - cPanel 120.0.11 on CloudLinux 9
 
-## Installation
+# Installation
 
 To install the plugin, follow these steps:
 
@@ -53,6 +53,25 @@ For the cron job to run and start Redis Server automatically for users who has i
 
 Once installed, cPanel user can manage their Redis instance through the cPanel interface.
 Navigate to the Software section and click on Redis, from there you can start or stop the Redis instance with just a click.
+
+# Uninstall
+
+To uninstall the plugin, follow these steps:
+
+1. Login to your server via SSH.
+2. Run the following commands in the terminal.
+
+```
+/usr/local/cpanel/scripts/uninstall_plugin /usr/local/cpanel/base/frontend/jupiter/redis_plugin --theme=jupiter
+rm -fR /usr/local/cpanel/base/frontend/jupiter/redis_plugin
+```
+
+**Plugin Directory:** /usr/local/cpanel/base/frontend/jupiter/redis_plugin
+
+**_Rare Case: If you have installed another/Redis plugin to the same directory mentioned above, the terminal commands will remove it. Please be sure to install your other plugin again._**
+
+You can refer to the following cPanel Guide To Remove plugins.
+https://api.docs.cpanel.net/guides/guide-to-cpanel-plugins/guide-to-cpanel-plugins-uninstall-plugins
 
 # Contributing
 
