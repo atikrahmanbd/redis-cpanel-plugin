@@ -68,9 +68,8 @@ rm -fR /usr/local/cpanel/base/frontend/jupiter/redis_plugin
 
 **Plugin Directory:** /usr/local/cpanel/base/frontend/jupiter/redis_plugin
 
-**_Rare Case: If you have installed another/Redis plugin to the same directory mentioned above, the terminal commands will remove it. Please be sure to install your other plugin again._**
-
 You can refer to the following cPanel Guide To Remove plugins.
+
 https://api.docs.cpanel.net/guides/guide-to-cpanel-plugins/guide-to-cpanel-plugins-uninstall-plugins
 
 # Contributing
